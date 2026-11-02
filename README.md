@@ -11,6 +11,7 @@ Each track is maintained in its own **fully autonomous, dedicated directory** wi
 | Track Name | Dedicated Directory | Level / Audience | Status | Target Outcome |
 | :--- | :--- | :---: | :---: | :---: |
 | **AI & LLM Foundations for Absolute Beginners** | [📂 `AI and LLM Foundations for Absolute Beginners/`](./AI%20and%20LLM%20Foundations%20for%20Absolute%20Beginners/README.md) | **Absolute Beginner** (No AI background required) | **Active & Ready** 🟢 | Intuitive mental models for AI, LLMs, Vector DBs, RAG & first API code |
+| **Local Agentic AI: Hands-on with Ollama & Gemma** | [📂 `Local Agentic AI - Hands-on with Ollama and Gemma/`](./Local%20Agentic%20AI%20-%20Hands-on%20with%20Ollama%20and%20Gemma/README.md) | **Absolute Beginner to Agent Builder** | **Active & Ready** 🟢 | Zero-cost local LLM inference, Python API calls, tool calling & autonomous agent loops |
 | **Claude Certified Associate — Foundations (CCAO-F)** | [📂 `Claude Certified Associate - Foundations Certification/`](./Claude%20Certified%20Associate%20-%20Foundations%20Certification/README.md) | **Associate / Professional** | **Active & Ready** 🟢 | **720 / 900+ (Distinction on Pearson VUE)** |
 
 ---
@@ -25,7 +26,7 @@ c:\Users\sanjoy.halder\Downloads\Anthropic_claude_certifications\
 │   └── skills/
 │       └── claude-foundations-coach/      # CCAO-F Certification Mentor Skill
 │
-├── AI and LLM Foundations for Absolute Beginners/  # Dedicated Beginner Track
+├── AI and LLM Foundations for Absolute Beginners/  # Mental Models & Rosetta Stone
 │   ├── README.md                          # Beginner Dashboard & Rosetta Stone
 │   ├── 00_roadmap_and_study_plan/         # 14-Day Zero-to-Hero Learning Path
 │   ├── 01_core_concepts_and_fundamentals/ # AI/ML/LLM, Tokens & Desk Analogy
@@ -34,6 +35,16 @@ c:\Users\sanjoy.halder\Downloads\Anthropic_claude_certifications\
 │   ├── 04_observability_security_and_ops/ # Hallucinations, Trojan Horses & Privacy
 │   ├── 05_scenario_questions_and_drills/  # 8 Conceptual Beginner Practice Drills
 │   └── 08_qa_and_doubt_clearing/          # Auto-Persisted Beginner Q&A Library
+│
+├── Local Agentic AI - Hands-on with Ollama and Gemma/  # Zero-Cost Local Agent Development
+│   ├── README.md                          # Local Agent Command Center & Rosetta Stone
+│   ├── 00_roadmap_and_study_plan/         # 9-Phase Hands-On Path & Setup Guide
+│   ├── 01_core_concepts_and_fundamentals/ # Weights, Quantization & Ollama REST API
+│   ├── 02_architecture_and_deep_dives/    # ReAct Loops, JSON Schemas & Memory
+│   ├── 03_hands_on_labs_and_code/         # 5 Bite-Sized Python Labs (10-15 lines each)
+│   ├── 04_observability_security_and_ops/ # No-eval Safety, Loop Breakers & Performance
+│   ├── 05_scenario_questions_and_drills/  # Scenario Drills & Interview Perspectives
+│   └── 08_qa_and_doubt_clearing/          # Auto-Persisting Local AI Knowledge Base
 │
 ├── Claude Certified Associate - Foundations Certification/   # Professional Exam Track
 │   ├── README.md                          # Master Certification Dashboard & Blueprint Mapping
@@ -56,14 +67,17 @@ graph TD
     Root["<b>Anthropic Learning & Certifications Master Hub</b><br/>(Repository Root)"]
     Agents[".agents/skills/<br/>Autonomous Certification Coaches"]
     
-    Track0["<b>Track 0: AI & LLM Foundations</b><br/><i>Absolute Beginner Friendly</i><br/>Analogies, Vectors, Tokens, RAG"]
-    Track1["<b>Track 1: Claude Certified Associate (CCAO-F)</b><br/><i>Professional Exam Prep</i><br/>Blueprint Domains, Code Labs, VUE Drills"]
+    Track0["<b>Track 0: AI & LLM Foundations</b><br/><i>Absolute Beginner Mental Models</i><br/>Analogies, Vectors, Tokens, RAG"]
+    TrackLocal["<b>Track 1: Local Agentic AI</b><br/><i>Hands-On Python + Ollama Gemma</i><br/>Zero-Cost, Local REST API, Tool Calling"]
+    TrackCert["<b>Track 2: Claude Certified Associate (CCAO-F)</b><br/><i>Professional Exam Prep</i><br/>Blueprint Domains, Code Labs, VUE Drills"]
     
     Root --> Agents
     Root --> Track0
-    Root --> Track1
+    Root --> TrackLocal
+    Root --> TrackCert
 
-    Track0 -.->|"Graduates Into"| Track1
+    Track0 -.->|"Prepares for"| TrackLocal
+    TrackLocal -.->|"Bridges into"| TrackCert
 ```
 
 ---
