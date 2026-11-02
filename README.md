@@ -4,19 +4,20 @@ Welcome to the **Anthropic Claude Certifications Master Study Hub & Command Cent
 
 ---
 
-## 🏛️ Active Certification Study Hubs
+## 🏛️ Active Learning Tracks & Certification Hubs
 
-Each certification is maintained in its own **fully autonomous, dedicated directory** with complete modular curricula, hands-on code labs, scenario practice question banks, and an auto-persisting Q&A knowledge base.
+Each track is maintained in its own **fully autonomous, dedicated directory** with complete modular curricula, hands-on code labs, scenario practice question banks, and an auto-persisting Q&A knowledge base.
 
-| Certification Track | Dedicated Directory | Level | Status | Passing / Target |
+| Track Name | Dedicated Directory | Level / Audience | Status | Target Outcome |
 | :--- | :--- | :---: | :---: | :---: |
-| **Claude Certified Associate — Foundations (CCAO-F)** | [📂 `Claude Certified Associate - Foundations Certification/`](./Claude%20Certified%20Associate%20-%20Foundations%20Certification/README.md) | Associate | **Active & Ready** 🟢 | **720 / 900+ (Distinction)** |
+| **AI & LLM Foundations for Absolute Beginners** | [📂 `AI and LLM Foundations for Absolute Beginners/`](./AI%20and%20LLM%20Foundations%20for%20Absolute%20Beginners/README.md) | **Absolute Beginner** (No AI background required) | **Active & Ready** 🟢 | Intuitive mental models for AI, LLMs, Vector DBs, RAG & first API code |
+| **Claude Certified Associate — Foundations (CCAO-F)** | [📂 `Claude Certified Associate - Foundations Certification/`](./Claude%20Certified%20Associate%20-%20Foundations%20Certification/README.md) | **Associate / Professional** | **Active & Ready** 🟢 | **720 / 900+ (Distinction on Pearson VUE)** |
 
 ---
 
-## 🧭 Multi-Certification Workspace Architecture
+## 🧭 Multi-Track Workspace Architecture
 
-Every certification track added to this repository follows a strict, self-contained modular numbering system:
+Every learning track added to this repository follows a strict, self-contained modular numbering system:
 
 ```text
 c:\Users\sanjoy.halder\Downloads\Anthropic_claude_certifications\
@@ -24,7 +25,17 @@ c:\Users\sanjoy.halder\Downloads\Anthropic_claude_certifications\
 │   └── skills/
 │       └── claude-foundations-coach/      # CCAO-F Certification Mentor Skill
 │
-├── Claude Certified Associate - Foundations Certification/   # Dedicated Certification Folder
+├── AI and LLM Foundations for Absolute Beginners/  # Dedicated Beginner Track
+│   ├── README.md                          # Beginner Dashboard & Rosetta Stone
+│   ├── 00_roadmap_and_study_plan/         # 14-Day Zero-to-Hero Learning Path
+│   ├── 01_core_concepts_and_fundamentals/ # AI/ML/LLM, Tokens & Desk Analogy
+│   ├── 02_architecture_and_deep_dives/    # Embeddings, Vector DBs & RAG Made Easy
+│   ├── 03_hands_on_labs_and_code/         # Claude UI, Projects & First Python API Script
+│   ├── 04_observability_security_and_ops/ # Hallucinations, Trojan Horses & Privacy
+│   ├── 05_scenario_questions_and_drills/  # 8 Conceptual Beginner Practice Drills
+│   └── 08_qa_and_doubt_clearing/          # Auto-Persisted Beginner Q&A Library
+│
+├── Claude Certified Associate - Foundations Certification/   # Professional Exam Track
 │   ├── README.md                          # Master Certification Dashboard & Blueprint Mapping
 │   ├── 00_roadmap_and_study_plan/         # 30-Day Daily Schedule & Milestone Checklists
 │   ├── 01_core_concepts_and_fundamentals/ # Model Families, System Prompts, XML Tags
@@ -42,32 +53,17 @@ c:\Users\sanjoy.halder\Downloads\Anthropic_claude_certifications\
 
 ```mermaid
 graph TD
-    Root["<b>Anthropic Certifications Master Hub</b><br/>(Repository Root)"]
+    Root["<b>Anthropic Learning & Certifications Master Hub</b><br/>(Repository Root)"]
     Agents[".agents/skills/<br/>Autonomous Certification Coaches"]
-    Cert1["<b>Claude Certified Associate - Foundations</b><br/>(Dedicated Folder)"]
-    CertFuture["<b>Future Anthropic Certifications</b><br/>(Auto-Created Dedicated Folder on Request)"]
-
+    
+    Track0["<b>Track 0: AI & LLM Foundations</b><br/><i>Absolute Beginner Friendly</i><br/>Analogies, Vectors, Tokens, RAG"]
+    Track1["<b>Track 1: Claude Certified Associate (CCAO-F)</b><br/><i>Professional Exam Prep</i><br/>Blueprint Domains, Code Labs, VUE Drills"]
+    
     Root --> Agents
-    Root --> Cert1
-    Root --> CertFuture
+    Root --> Track0
+    Root --> Track1
 
-    subgraph CCAO_F["CCAO-F Dedicated Modules"]
-        M0["00_roadmap_and_study_plan"]
-        M1["01_core_concepts_and_fundamentals"]
-        M2["02_architecture_and_deep_dives"]
-        M3["03_hands_on_labs_and_code"]
-        M4["04_observability_security_and_ops"]
-        M5["05_scenario_questions_and_drills"]
-        M8["08_qa_and_doubt_clearing"]
-    end
-
-    Cert1 --> M0
-    Cert1 --> M1
-    Cert1 --> M2
-    Cert1 --> M3
-    Cert1 --> M4
-    Cert1 --> M5
-    Cert1 --> M8
+    Track0 -.->|"Graduates Into"| Track1
 ```
 
 ---
