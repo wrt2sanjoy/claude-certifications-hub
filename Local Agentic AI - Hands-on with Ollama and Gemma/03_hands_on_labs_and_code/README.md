@@ -7,12 +7,15 @@ In this module, you will manually write and run **5 bite-sized Python programs (
 ## 🧪 Lab 1: Your First Local API Call (Python `requests`)
 
 ### 1. Concept:
+
 We will write a 10-line Python script that sends a question to Ollama on your local computer (`http://localhost:11434`) and prints the response.
 
 ### 2. Why Do We Need It?
+
 Before building agents, we must know how Python talks to Ollama without any third-party AI frameworks.
 
 ### 3. Architecture:
+
 ```text
 [ Python Script (test_call.py) ] ---> HTTP POST :11434/api/generate ---> [ Ollama Gemma 2B ]
 ```
@@ -24,12 +27,14 @@ flowchart LR
 ```
 
 ### 4. Python Fundamentals:
+
 - `import requests`: Imports a popular Python library for sending web requests over the internet or localhost.
 - `url = "..."`: A variable holding the web address of your local Ollama server.
 - `payload = {...}`: A dictionary holding the request data (which model to use, the prompt, and `"stream": False` to get the whole answer at once).
 - `response.json()`: Converts the raw text received from Ollama into a Python dictionary.
 
 ### 5. Hands-On Code:
+
 Create a file named `01_first_call.py` and manually type:
 
 ```python
@@ -52,20 +57,25 @@ print("Gemma says:", data["response"])
 ```
 
 ### 6. Cross-Platform Instructions:
+
 Install `requests` first if not installed:
+
 - **Windows PowerShell**: `python -m pip install requests`
 - **macOS Terminal**: `python3 -m pip install requests`
 
 Run the script:
+
 - **Windows**: `python 01_first_call.py`
 - **macOS**: `python3 01_first_call.py`
 
 ### 7. Expected Output:
+
 ```text
 Gemma says: A computer is an electronic device that processes information and performs calculations based on instructions.
 ```
 
 ### 8. Technical Explanation:
+
 `requests.post()` automatically took the Python dictionary `payload`, serialized it into a JSON string, sent an HTTP POST request to Ollama's background service on port 11434, waited for Gemma to predict the answer, and converted the JSON reply back into a Python dictionary where `data["response"]` contains the text.
 
 ---
@@ -73,28 +83,33 @@ Gemma says: A computer is an electronic device that processes information and pe
 ## 🧪 Lab 2: Chat Endpoints & `json.dumps()`
 
 ### 1. Concept:
+
 Instead of a raw text prompt, we switch to `/api/chat` using structured roles (`"user"` and `"assistant"`). We explicitly use Python's built-in `json` module to see how JSON serialization works.
 
 ### 2. Why Do We Need It?
+
 Agents require conversation structure (`role`) so they know who said what.
 
 ### 3. Architecture:
+
 ```text
 [ Python dict ] ---> json.dumps() ---> [ Raw JSON String ] ---> [ Ollama /api/chat ]
 ```
 
 ```mermaid
 flowchart LR
-    Dict["Python Dict:<br/><code>{'role': 'user'}</code>"] -->|"json.dumps()"| JSONStr["Raw JSON String:<br/><code>'{\"role\": \"user\"}'</code>"]
+    Dict["<b>Python Dict (In Memory)</b><br/>{'role': 'user'}"] -->|"json.dumps()"| JSONStr["<b>Raw JSON String</b><br/>'{&quot;role&quot;: &quot;user&quot;}'"]
     JSONStr -->|"HTTP POST"| OllamaChat["<b>Ollama /api/chat</b>"]
 ```
 
 ### 4. Python Fundamentals:
+
 - `import json`: Python's built-in module for working with JSON.
 - `json.dumps(obj)`: Takes a Python dictionary or list and turns it into a formatted text string ("dump string").
 - `headers = {"Content-Type": "application/json"}`: Tells the server we are sending JSON data.
 
 ### 5. Hands-On Code:
+
 Create `02_json_chat.py` and type:
 
 ```python
@@ -121,6 +136,7 @@ print("Tutor:", result["message"]["content"])
 ```
 
 ### 6. Run & Expected Output:
+
 - **Run**: `python 02_json_chat.py`
 - **Output**:
   ```text
@@ -132,12 +148,15 @@ print("Tutor:", result["message"]["content"])
 ## 🧪 Lab 3: Conversation Memory (Saving Context in Python)
 
 ### 1. Concept:
+
 Ollama itself is completely **stateless**—it does not remember past questions. If you want Gemma to remember what you said 2 minutes ago, **your Python script must save the context** in a list and send the entire conversation history back on every turn!
 
 ### 2. Why Do We Need It?
+
 An agent cannot execute multi-step tasks if it forgets what happened on step 1.
 
 ### 3. Architecture:
+
 ```text
 Turn 1: [ User: "My name is Sam" ] ---------------------> Gemma: "Nice to meet you, Sam!"
 Turn 2: [ User: "Sam", Gemma: "...", User: "What's my name?" ] -> Gemma: "Your name is Sam!"
@@ -155,7 +174,7 @@ sequenceDiagram
     Script->>Gemma: Sends 1 message
     Gemma-->>Script: "Hello Alex!"
     Script->>Script: Append: {"role": "assistant", "content": "Hello Alex!"}
-    
+  
     User->>Script: "What is my name?"
     Script->>Script: Append: {"role": "user", "content": "What is my name?"}
     Script->>Gemma: Sends ALL 3 messages (Context preserved!)
@@ -163,11 +182,13 @@ sequenceDiagram
 ```
 
 ### 4. Python Fundamentals:
+
 - `history = []`: Creates an empty list to store conversation history.
 - `history.append(new_item)`: Adds a new item to the end of the list.
 - `while True:`: Creates an interactive loop so you can keep chatting until you type `"quit"`.
 
 ### 5. Hands-On Code:
+
 Create `03_chat_memory.py` and type:
 
 ```python
@@ -189,7 +210,7 @@ while True:
     # 2. Send complete history to Gemma
     response = requests.post(url, json={"model": "gemma2:2b", "messages": history, "stream": False})
     bot_reply = response.json()["message"]["content"]
-    
+  
     print(f"Gemma: {bot_reply}\n")
 
     # 3. Save Gemma's reply to memory so it remembers next time!
@@ -197,7 +218,9 @@ while True:
 ```
 
 ### 6. Experiment:
+
 Run `python 03_chat_memory.py`:
+
 1. Type: `My favorite fruit is Mango.`
 2. Type: `What is my favorite fruit?`
 3. Notice that Gemma answers: *"Your favorite fruit is Mango!"* because Python preserved the history!
@@ -207,12 +230,15 @@ Run `python 03_chat_memory.py`:
 ## 🧪 Lab 4: Your First Tool-Calling Agent
 
 ### 1. Concept:
+
 LLMs cannot count letters accurately. We give Gemma a **Python tool** (`count_words_and_chars`) and tell it to ask for the tool if it needs to count.
 
 ### 2. Why Do We Need It?
+
 This is the birth of an **Agent**: the LLM decides to take an action, and Python executes it!
 
 ### 3. Architecture:
+
 ```text
 User asks to count words ---> Gemma emits JSON {"tool": "count", "text": "..."} ---> Python runs function ---> Returns true count!
 ```
@@ -226,6 +252,7 @@ flowchart TD
 ```
 
 ### 4. Hands-On Code:
+
 Create `04_simple_tool_agent.py` and type:
 
 ```python
@@ -258,6 +285,7 @@ if "count_words" in reply:
 ```
 
 ### 5. Run & Expected Output:
+
 ```text
 Gemma chose action:
 {"tool": "count_words", "text": "Anthropic Claude and Gemma are awesome"}
@@ -270,9 +298,11 @@ Gemma chose action:
 ## 🧪 Lab 5: Semantic Vectors with Ollama (`/api/embeddings`)
 
 ### 1. Concept:
+
 Now let's see how Vector search works! We will ask Ollama to turn two sentences into mathematical vectors and compare them.
 
 ### 2. Hands-On Code:
+
 Create `05_simple_vector.py` and type:
 
 ```python
@@ -300,11 +330,13 @@ print(f"Similarity (Puppy vs Airplane): {cosine_similarity(vec_puppy, vec_airpla
 ```
 
 ### 3. Run & Expected Output:
+
 ```text
 Calculating semantic vectors...
 Similarity (Puppy vs Dog):      0.8924
 Similarity (Puppy vs Airplane): 0.3121
 ```
+
 *Look at that!* Even though the words "puppy" and "dog" are spelled differently, their vector similarity is **~0.89 (89%)**, while the airplane is only **0.31**. This is the mathematical foundation of all Vector Databases and RAG!
 
 ---
@@ -315,4 +347,3 @@ Similarity (Puppy vs Airplane): 0.3121
    - *Answer:* Keeping the LLM server stateless allows it to scale horizontally without keeping millions of user sessions in GPU memory. The client application is responsible for appending turns and sending the relevant context window on each request.
 2. **Question: How does an agent ensure safety when calling external tools?**
    - *Answer:* Never evaluate raw model output using arbitrary code execution like `eval()`. Instead, force the model to emit structured JSON matching a predefined schema, validate parameters in application code, and invoke whitelisted functions.
-

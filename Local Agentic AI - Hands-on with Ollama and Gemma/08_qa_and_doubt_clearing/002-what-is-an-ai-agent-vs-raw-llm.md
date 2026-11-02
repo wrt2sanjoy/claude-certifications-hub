@@ -45,7 +45,7 @@ flowchart TD
 
     subgraph AgentLoop["<b>AI Agent System</b>"]
         U2["User: 'What is 39824 * 8492?'"] --> M2["LLM Brain"]
-        M2 -->|"Tool Call Decision"| Call["Emits JSON: <code>{'tool': 'calc', 'a': 39824, 'b': 8492}</code>"]
+        M2 -->|"Tool Call Decision"| Call["Emits Tool JSON:<br/>tool: 'calc', a: 39824, b: 8492"]
         Call --> Python["<b>Python Math Engine</b><br/>Calculates: 338,185,408"]
         Python -->|"Tool Observation"| M2
         M2 --> A2["Answers with 100% precision: '338,185,408'"]
